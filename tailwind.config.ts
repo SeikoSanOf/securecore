@@ -57,6 +57,23 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        cyber: {
+          green: "hsl(var(--cyber-green))",
+          blue: "hsl(var(--cyber-blue))",
+          orange: "hsl(var(--cyber-orange))",
+          red: "hsl(var(--cyber-red))",
+        },
+        terminal: {
+          bg: "hsl(var(--terminal-bg))",
+          text: "hsl(var(--terminal-text))",
+        },
+      },
+      backgroundImage: {
+        'gradient-cyber': 'var(--gradient-cyber)',
+        'gradient-danger': 'var(--gradient-danger)',
+      },
+      fontFamily: {
+        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
       },
       borderRadius: {
         lg: "var(--radius)",
