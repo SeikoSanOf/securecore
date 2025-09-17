@@ -8,59 +8,81 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Cybersecurity dark theme */
-    --background: 220 13% 9%;
-    --foreground: 210 40% 98%;
+    /* Purple glassmorphism theme */
+    --background: 250 20% 4%;
+    --foreground: 250 10% 95%;
 
-    --card: 220 13% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 250 20% 8% / 0.6;
+    --card-foreground: 250 10% 95%;
 
-    --popover: 220 13% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 250 20% 8% / 0.9;
+    --popover-foreground: 250 10% 95%;
 
-    --primary: 142 71% 45%;
-    --primary-foreground: 220 13% 9%;
+    --primary: 270 80% 70%;
+    --primary-foreground: 250 20% 4%;
 
-    --secondary: 215 25% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 250 30% 15% / 0.5;
+    --secondary-foreground: 250 10% 95%;
 
-    --muted: 215 25% 15%;
-    --muted-foreground: 217.9 10.6% 64.9%;
+    --muted: 250 30% 15% / 0.3;
+    --muted-foreground: 250 10% 70%;
 
-    --accent: 142 71% 45%;
-    --accent-foreground: 220 13% 9%;
+    --accent: 270 80% 70%;
+    --accent-foreground: 250 20% 4%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 65%;
+    --destructive-foreground: 250 10% 95%;
 
-    --border: 215 25% 18%;
-    --input: 215 25% 15%;
-    --ring: 142 71% 45%;
+    --border: 250 30% 20% / 0.3;
+    --input: 250 30% 15% / 0.5;
+    --ring: 270 80% 70%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Cyber accents */
-    --cyber-green: 142 71% 45%;
-    --cyber-blue: 198 93% 60%;
-    --cyber-orange: 25 95% 53%;
-    --cyber-red: 0 84% 60%;
+    /* Purple glass accents */
+    --glass-purple: 270 80% 70%;
+    --glass-blue: 240 100% 75%;
+    --glass-pink: 320 70% 75%;
+    --glass-violet: 280 90% 80%;
 
-    /* Terminal colors */
-    --terminal-bg: 220 13% 7%;
-    --terminal-text: 142 71% 45%;
+    /* Glassmorphism effects */
+    --glass-bg: 250 20% 8% / 0.1;
+    --glass-border: 270 80% 70% / 0.2;
+    --glass-shadow: 270 80% 20% / 0.3;
 
     /* Gradients */
-    --gradient-cyber: linear-gradient(135deg, hsl(142 71% 45%), hsl(198 93% 60%));
-    --gradient-danger: linear-gradient(135deg, hsl(0 84% 60%), hsl(25 95% 53%));
+    --gradient-glass: linear-gradient(135deg, hsl(270 80% 70% / 0.2), hsl(240 100% 75% / 0.2));
+    --gradient-primary: linear-gradient(135deg, hsl(270 80% 70%), hsl(280 90% 80%));
 
-    --sidebar-background: 220 13% 11%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 142 71% 45%;
-    --sidebar-primary-foreground: 220 13% 9%;
-    --sidebar-accent: 215 25% 15%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 215 25% 18%;
-    --sidebar-ring: 142 71% 45%;
+    --sidebar-background: 250 20% 6% / 0.8;
+    --sidebar-foreground: 250 10% 95%;
+    --sidebar-primary: 270 80% 70%;
+    --sidebar-primary-foreground: 250 20% 4%;
+    --sidebar-accent: 250 30% 15% / 0.5;
+    --sidebar-accent-foreground: 250 10% 95%;
+    --sidebar-border: 250 30% 20% / 0.3;
+    --sidebar-ring: 270 80% 70%;
+  }
+
+  .dark {
+    /* Dark mode overrides */
+    --background: 250 20% 4%;
+    --foreground: 250 10% 95%;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism utilities */
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl shadow-lg shadow-purple-500/10;
+  }
+  
+  .glass-button {
+    @apply bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-md border border-white/20 hover:from-purple-500/30 hover:to-blue-500/30 transition-all duration-300;
   }
 }
 

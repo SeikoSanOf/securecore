@@ -10,6 +10,8 @@ import Dashboard from "@/pages/Dashboard";
 import OSINTModule from "@/pages/OSINTModule";
 import PasswordManager from "@/pages/PasswordManager";
 import PentestSuite from "@/pages/PentestSuite";
+import Reports from "@/pages/Reports";
+import Notifications from "@/pages/Notifications";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -44,6 +46,8 @@ const App = () => (
               <Route path="/osint" element={<OSINTModule />} />
               <Route path="/passwords" element={<PasswordManager />} />
               <Route path="/pentest" element={<PentestSuite />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/notifications" element={<Notifications />} />
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
