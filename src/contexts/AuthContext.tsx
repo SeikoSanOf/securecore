@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     // Check for stored user session
-    const storedUser = localStorage.getItem('sentryos_user');
+    const storedUser = localStorage.getItem('securecore_user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       };
       
       setUser(mockUser);
-      localStorage.setItem('sentryos_user', JSON.stringify(mockUser));
+      localStorage.setItem('securecore_user', JSON.stringify(mockUser));
       return true;
     }
     
@@ -73,7 +73,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       };
       
       setUser(mockUser);
-      localStorage.setItem('sentryos_user', JSON.stringify(mockUser));
+      localStorage.setItem('securecore_user', JSON.stringify(mockUser));
       return true;
     }
     
@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('sentryos_user');
+    localStorage.removeItem('securecore_user');
   };
 
   const value: AuthContextType = {

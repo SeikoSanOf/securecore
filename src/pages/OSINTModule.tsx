@@ -55,7 +55,7 @@ const OSINTModule = () => {
 
   useEffect(() => {
     // Load jobs from localStorage
-    const storedJobs = localStorage.getItem('sentryos_osint_jobs');
+    const storedJobs = localStorage.getItem('securecore_osint_jobs');
     if (storedJobs) {
       const parsed = JSON.parse(storedJobs);
       setJobs(parsed.map((j: any) => ({ 
@@ -67,7 +67,7 @@ const OSINTModule = () => {
   }, []);
 
   const saveJobs = (newJobs: OSINTJob[]) => {
-    localStorage.setItem('sentryos_osint_jobs', JSON.stringify(newJobs));
+    localStorage.setItem('securecore_osint_jobs', JSON.stringify(newJobs));
     setJobs(newJobs);
   };
 

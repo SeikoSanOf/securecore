@@ -37,7 +37,7 @@ const AuthPage = () => {
       if (success) {
         toast({
           title: "Welcome back",
-          description: "Successfully logged into SentryOS Pro",
+          description: "Successfully logged into SecureCore Pro",
         });
         navigate('/dashboard');
       } else {
@@ -77,7 +77,7 @@ const AuthPage = () => {
       if (success) {
         toast({
           title: "Account created",
-          description: "Welcome to SentryOS Pro!",
+          description: "Welcome to SecureCore Pro!",
         });
         navigate('/dashboard');
       } else {
@@ -107,7 +107,7 @@ const AuthPage = () => {
             <Shield className="w-12 h-12 text-primary" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-cyber bg-clip-text text-transparent">
-            SentryOS Pro
+            SecureCore Pro
           </h1>
           <p className="text-muted-foreground font-mono mt-2">
             Multi-Tool Security Platform

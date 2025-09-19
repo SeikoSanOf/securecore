@@ -55,7 +55,7 @@ const PasswordManager = () => {
 
   useEffect(() => {
     // Load passwords from localStorage
-    const storedPasswords = localStorage.getItem('sentryos_passwords');
+    const storedPasswords = localStorage.getItem('securecore_passwords');
     if (storedPasswords) {
       const parsed = JSON.parse(storedPasswords);
       setPasswords(parsed.map((p: any) => ({ ...p, createdAt: new Date(p.createdAt) })));
@@ -63,7 +63,7 @@ const PasswordManager = () => {
   }, []);
 
   const savePasswords = (newPasswords: PasswordEntry[]) => {
-    localStorage.setItem('sentryos_passwords', JSON.stringify(newPasswords));
+    localStorage.setItem('securecore_passwords', JSON.stringify(newPasswords));
     setPasswords(newPasswords);
   };
 
@@ -150,7 +150,7 @@ const PasswordManager = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `sentryos-passwords-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `securecore-passwords-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

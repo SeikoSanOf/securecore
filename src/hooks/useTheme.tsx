@@ -6,7 +6,7 @@ export const useTheme = () => {
   const [theme, setTheme] = useState<Theme>('system');
 
   useEffect(() => {
-    const stored = localStorage.getItem('sentryos_theme') as Theme;
+    const stored = localStorage.getItem('securecore_theme') as Theme;
     if (stored) {
       setTheme(stored);
     }
@@ -42,7 +42,7 @@ export const useTheme = () => {
 
   const setThemeMode = (newTheme: Theme) => {
     setTheme(newTheme);
-    localStorage.setItem('sentryos_theme', newTheme);
+    localStorage.setItem('securecore_theme', newTheme);
   };
 
   return {
