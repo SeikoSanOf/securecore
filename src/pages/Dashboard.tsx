@@ -64,26 +64,24 @@ const Dashboard = () => {
 
   // Mock data structure matching API types (replace with real API data when available)
   const stats = dashboardStats?.data || {
-    total_scans: 1247,
-    active_threats: 23,
-    passwords_stored: 156,
-    system_health: 94,
-    recent_activity: [
-      { type: 'scan_completed', message: 'Web vulnerability scan completed for target.com', time: '2 minutes ago', severity: 'success' },
-      { type: 'threat_detected', message: 'High severity SQL injection detected', time: '15 minutes ago', severity: 'error' },
-      { type: 'osint_query', message: 'OSINT reconnaissance finished for domain research', time: '1 hour ago', severity: 'info' },
-      { type: 'password_audit', message: '3 weak passwords detected in vault', time: '2 hours ago', severity: 'warning' },
-      { type: 'report_generated', message: 'Security assessment report exported', time: '3 hours ago', severity: 'success' }
-    ]
+    total_scans: 0,
+    active_threats: 0,
+    passwords_stored: 0,
+    system_health: 0,
+    recent_activity: [],
+    system_services: []
   };
 
-  const systemServices: SystemStatus[] = [
-    { service: 'Web Scanner', status: 'operational', lastCheck: '2 min ago', icon: Target, color: 'text-green-400' },
-    { service: 'OSINT Engine', status: 'operational', lastCheck: '1 min ago', icon: Search, color: 'text-green-400' },
-    { service: 'Password Vault', status: 'maintenance', lastCheck: '5 min ago', icon: Lock, color: 'text-yellow-400' },
-    { service: 'Threat Intelligence', status: 'operational', lastCheck: '30 sec ago', icon: Shield, color: 'text-green-400' },
-    { service: 'Report Engine', status: 'degraded', lastCheck: '3 min ago', icon: BarChart3, color: 'text-orange-400' }
-  ];
+  const systemServices = stats.system_services?.map((service: any) => ({
+    ...service,
+    icon: service.type === 'web_scanner' ? Target :
+          service.type === 'osint_engine' ? Search :
+          service.type === 'password_vault' ? Lock :
+          service.type === 'threat_intel' ? Shield : BarChart3,
+    color: service.status === 'operational' ? 'text-green-400' :
+           service.status === 'degraded' ? 'text-orange-400' :
+           service.status === 'maintenance' ? 'text-yellow-400' : 'text-red-400'
+  })) || [];
 
   const handleRefresh = async () => {
     try {
@@ -401,7 +399,7 @@ const Dashboard = () => {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <Button 
-                onClick={() => navigate('/osint')}
+                onClick={() => navigate('/osint-module')}
                 className="w-full justify-start h-16 glass-button border border-green-500/30 hover:border-green-500/50 text-green-400 hover:text-green-300 hover:scale-105 transition-all duration-200"
               >
                 <div className="flex items-center space-x-3">
@@ -417,7 +415,7 @@ const Dashboard = () => {
               </Button>
               
               <Button 
-                onClick={() => navigate('/passwords')}
+                onClick={() => navigate('/password-manager')}
                 className="w-full justify-start h-16 glass-button border border-blue-500/30 hover:border-blue-500/50 text-blue-400 hover:text-blue-300 hover:scale-105 transition-all duration-200"
               >
                 <div className="flex items-center space-x-3">
@@ -433,7 +431,7 @@ const Dashboard = () => {
               </Button>
               
               <Button 
-                onClick={() => navigate('/pentest')}
+                onClick={() => navigate('/pentest-suite')}
                 className="w-full justify-start h-16 glass-button border border-red-500/30 hover:border-red-500/50 text-red-400 hover:text-red-300 hover:scale-105 transition-all duration-200"
               >
                 <div className="flex items-center space-x-3">

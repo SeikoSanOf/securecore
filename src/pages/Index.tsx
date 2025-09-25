@@ -110,6 +110,20 @@ const Index = () => {
               <Button 
                 variant="outline" 
                 size="lg"
+                onClick={() => {
+                  // Simulate demo login and redirect to dashboard
+                  const demoUser = {
+                    id: 'demo',
+                    email: 'demo@securecore.com',
+                    name: 'Demo User',
+                    role: 'analyst' as const,
+                    created_at: new Date().toISOString(),
+                    email_verified: true
+                  };
+                  localStorage.setItem('demo_mode', 'true');
+                  localStorage.setItem('auth_token', 'demo_token');
+                  navigate('/dashboard');
+                }}
                 className="text-lg px-8 py-6 glass border border-white/20 hover:border-white/30 hover:scale-105 transition-all duration-300"
               >
                 View Demo

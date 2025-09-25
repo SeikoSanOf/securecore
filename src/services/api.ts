@@ -114,6 +114,7 @@ class APIService {
     passwords_stored: number;
     system_health: number;
     recent_activity: any[];
+    system_services?: any[];
   }>> {
     return this.request('/dashboard/stats');
   }

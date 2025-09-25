@@ -33,10 +33,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // Check for stored user session
+    // Check for stored user session or demo mode
     const storedUser = localStorage.getItem('securecore_user');
+    const demoMode = localStorage.getItem('demo_mode');
+    
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else if (demoMode === 'true') {
+      const demoUser: User = {
+        id: 'demo',
+        email: 'demo@securecore.com',
+        name: 'Demo User',
+        role: 'analyst'
+      };
+      setUser(demoUser);
     }
   }, []);
 
@@ -83,6 +93,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('securecore_user');
+    localStorage.removeItem('demo_mode');
+    localStorage.removeItem('auth_token');
   };
 
   const value: AuthContextType = {

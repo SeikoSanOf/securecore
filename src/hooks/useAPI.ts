@@ -18,7 +18,7 @@ export const useDashboardStats = () => {
     queryKey: ['dashboard-stats'],
     queryFn: () => apiService.getDashboardStats(),
     refetchInterval: 30000, // Refresh every 30 seconds
-  });
+  }) as any; // Type assertion to handle system_services
 };
 
 export const useDashboardMetrics = () => {

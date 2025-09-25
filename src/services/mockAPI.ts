@@ -202,6 +202,7 @@ export const mockAPI = {
     passwords_stored: number;
     system_health: number;
     recent_activity: any[];
+    system_services: any[];
   }>> {
     await delay(500);
     
@@ -212,10 +213,19 @@ export const mockAPI = {
         active_threats: 3,
         passwords_stored: mockPasswords.length,
         system_health: 94,
+        system_services: [
+          { service: 'Web Scanner', status: 'operational', lastCheck: '2 min ago', type: 'web_scanner' },
+          { service: 'OSINT Engine', status: 'operational', lastCheck: '1 min ago', type: 'osint_engine' },
+          { service: 'Password Vault', status: 'maintenance', lastCheck: '5 min ago', type: 'password_vault' },
+          { service: 'Threat Intelligence', status: 'operational', lastCheck: '30 sec ago', type: 'threat_intel' },
+          { service: 'Report Engine', status: 'degraded', lastCheck: '3 min ago', type: 'report_engine' }
+        ],
         recent_activity: [
-          { id: 1, type: 'scan_completed', message: 'Web scan completed for example.com', time: '2 hours ago' },
-          { id: 2, type: 'vulnerability_found', message: 'High severity XSS detected', time: '3 hours ago' },
-          { id: 3, type: 'password_added', message: 'New password entry created', time: '1 day ago' }
+          { id: 1, type: 'scan_completed', message: 'Web scan completed for example.com', time: '2 hours ago', severity: 'success' },
+          { id: 2, type: 'vulnerability_found', message: 'High severity XSS detected', time: '3 hours ago', severity: 'error' },
+          { id: 3, type: 'password_added', message: 'New password entry created', time: '1 day ago', severity: 'info' },
+          { id: 4, type: 'osint_query', message: 'OSINT reconnaissance completed', time: '2 days ago', severity: 'success' },
+          { id: 5, type: 'threat_detected', message: '3 weak passwords detected', time: '3 days ago', severity: 'warning' }
         ]
       }
     };
