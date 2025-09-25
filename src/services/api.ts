@@ -14,9 +14,13 @@ import {
   DashboardMetric,
   OSINTResult
 } from '@/types/api';
+import { mockAPI } from './mockAPI';
 
 // Base API configuration
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+
+// Development mode: use mock data if no backend is available
+const USE_MOCK_API = import.meta.env.DEV && !import.meta.env.VITE_API_URL;
 
 class APIService {
   private token: string | null = null;
@@ -212,40 +216,5 @@ class APIService {
   }
 }
 
-// Export singleton instance
-export const apiService = new APIService();
-
-// Mock data for development - remove when backend is ready
-export const mockAPI = {
-  // This object contains all the mock implementations
-  // that mirror the real API structure for development
-  async login(data: LoginRequest) {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    if (data.email && data.password) {
-      const mockUser: User = {
-        id: '1',
-        email: data.email,
-        name: data.email.split('@')[0],
-        role: data.email.includes('admin') ? 'admin' : 'analyst',
-        created_at: new Date().toISOString(),
-        email_verified: true,
-        last_login: new Date().toISOString()
-      };
-      
-      const token = 'mock_jwt_token_' + Date.now();
-      
-      return {
-        success: true,
-        data: { user: mockUser, token }
-      };
-    }
-    
-    return {
-      success: false,
-      error: 'Invalid credentials'
-    };
-  }
-  // Add more mock methods as needed for development
-};
+// Export singleton instance - use mock API in development mode
+export const apiService = USE_MOCK_API ? mockAPI : new APIService();
