@@ -65,6 +65,13 @@ const PasswordManager = () => {
   const savePasswords = (newPasswords: PasswordEntry[]) => {
     localStorage.setItem('securecore_passwords', JSON.stringify(newPasswords));
     setPasswords(newPasswords);
+    
+    // Sync with dashboard stats by updating localStorage key that dashboard reads
+    const statsUpdate = {
+      passwords_stored: newPasswords.length,
+      lastUpdated: new Date().toISOString()
+    };
+    localStorage.setItem('securecore_password_stats', JSON.stringify(statsUpdate));
   };
 
   const generatePassword = () => {

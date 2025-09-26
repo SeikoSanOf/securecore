@@ -206,12 +206,30 @@ export const mockAPI = {
   }>> {
     await delay(500);
     
+    // Get real password count from localStorage
+    let passwordCount = mockPasswords.length;
+    try {
+      const storedStats = localStorage.getItem('securecore_password_stats');
+      if (storedStats) {
+        const stats = JSON.parse(storedStats);
+        passwordCount = stats.passwords_stored || 0;
+      } else {
+        const storedPasswords = localStorage.getItem('securecore_passwords');
+        if (storedPasswords) {
+          const passwords = JSON.parse(storedPasswords);
+          passwordCount = passwords.length || 0;
+        }
+      }
+    } catch (error) {
+      console.error('Error reading password count:', error);
+    }
+    
     return {
       success: true,
       data: {
         total_scans: 47,
         active_threats: 3,
-        passwords_stored: mockPasswords.length,
+        passwords_stored: passwordCount,
         system_health: 94,
         system_services: [
           { service: 'Web Scanner', status: 'operational', lastCheck: '2 min ago', type: 'web_scanner' },

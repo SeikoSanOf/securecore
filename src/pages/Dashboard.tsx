@@ -399,68 +399,64 @@ const Dashboard = () => {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <Button 
-                onClick={() => navigate('/osint-module')}
-                className="w-full justify-start h-16 glass-button border border-green-500/30 hover:border-green-500/50 text-green-400 hover:text-green-300 hover:scale-105 transition-all duration-200"
+                onClick={() => navigate('/password-manager')}
+                className="w-full h-20 glass-button border border-purple-500/30 hover:border-purple-500/50 text-purple-400 hover:text-purple-300 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
               >
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 rounded-lg bg-green-500/20">
-                    <Search className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">OSINT Search</div>
-                    <div className="text-xs opacity-75">Intelligence gathering</div>
+                <div className="flex items-center justify-center w-full">
+                  <div className="p-3 rounded-lg bg-purple-500/20">
+                    <Lock className="w-6 h-6" />
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 ml-auto" />
+                <div className="text-center">
+                  <div className="font-medium text-sm">🔐 Password Manager</div>
+                  <div className="text-xs opacity-75">Secure storage</div>
+                </div>
               </Button>
               
               <Button 
-                onClick={() => navigate('/password-manager')}
-                className="w-full justify-start h-16 glass-button border border-blue-500/30 hover:border-blue-500/50 text-blue-400 hover:text-blue-300 hover:scale-105 transition-all duration-200"
+                onClick={() => navigate('/osint-module')}
+                className="w-full h-20 glass-button border border-green-500/30 hover:border-green-500/50 text-green-400 hover:text-green-300 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
               >
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 rounded-lg bg-blue-500/20">
-                    <Plus className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">Add Password</div>
-                    <div className="text-xs opacity-75">Secure storage</div>
+                <div className="flex items-center justify-center w-full">
+                  <div className="p-3 rounded-lg bg-green-500/20">
+                    <Search className="w-6 h-6" />
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 ml-auto" />
+                <div className="text-center">
+                  <div className="font-medium text-sm">OSINT Search</div>
+                  <div className="text-xs opacity-75">Intelligence gathering</div>
+                </div>
               </Button>
               
               <Button 
                 onClick={() => navigate('/pentest-suite')}
-                className="w-full justify-start h-16 glass-button border border-red-500/30 hover:border-red-500/50 text-red-400 hover:text-red-300 hover:scale-105 transition-all duration-200"
+                className="w-full h-20 glass-button border border-red-500/30 hover:border-red-500/50 text-red-400 hover:text-red-300 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
               >
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 rounded-lg bg-red-500/20">
-                    <Target className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">Start Pentest</div>
-                    <div className="text-xs opacity-75">Security scan</div>
+                <div className="flex items-center justify-center w-full">
+                  <div className="p-3 rounded-lg bg-red-500/20">
+                    <Target className="w-6 h-6" />
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 ml-auto" />
+                <div className="text-center">
+                  <div className="font-medium text-sm">Start Pentest</div>
+                  <div className="text-xs opacity-75">Security scan</div>
+                </div>
               </Button>
               
               <Button 
                 onClick={() => navigate('/reports')}
                 variant="outline"
-                className="w-full justify-start h-16 glass border border-white/20 hover:border-white/30 hover:scale-105 transition-all duration-200"
+                className="w-full h-20 glass border border-white/20 hover:border-white/30 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
               >
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 rounded-lg bg-white/10">
-                    <Download className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">Export Reports</div>
-                    <div className="text-xs opacity-75">Download data</div>
+                <div className="flex items-center justify-center w-full">
+                  <div className="p-3 rounded-lg bg-white/10">
+                    <Download className="w-6 h-6" />
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 ml-auto" />
+                <div className="text-center">
+                  <div className="font-medium text-sm">Export Reports</div>
+                  <div className="text-xs opacity-75">Download data</div>
+                </div>
               </Button>
             </div>
           </CardContent>
