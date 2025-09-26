@@ -21,6 +21,7 @@ const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -28,10 +29,10 @@ const Layout = () => {
   };
 
   const menuItems = [
+    { path: '/passwords', icon: Lock, label: 'Password Manager', color: 'text-purple-400', highlight: true },
     { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', color: 'text-blue-400' },
-    { path: '/password-manager', icon: Lock, label: '🔐 Password Manager', color: 'text-purple-400', highlight: true },
-    { path: '/osint-module', icon: Search, label: 'OSINT Module', color: 'text-green-400' },
-    { path: '/pentest-suite', icon: Target, label: 'Pentest Suite', color: 'text-red-400' },
+    { path: '/osint', icon: Search, label: 'OSINT Module', color: 'text-green-400' },
+    { path: '/pentest', icon: Target, label: 'Pentest Suite', color: 'text-red-400' },
     { path: '/reports', icon: FileText, label: 'Rapports', color: 'text-yellow-400' },
     { path: '/notifications', icon: Bell, label: 'Notifications', color: 'text-pink-400' },
   ];
@@ -98,18 +99,51 @@ const Layout = () => {
           {/* User Profile */}
           <div className="p-4 border-t border-white/10">
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-3">
+              <button
+                className="flex items-center space-x-3 w-full p-2 rounded-lg hover:bg-white/5 transition-colors group"
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              >
                 <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 flex items-center justify-center backdrop-blur-sm border border-white/10">
                   <User className="w-5 h-5 text-primary" />
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 text-left">
                   <p className="text-sm font-medium truncate">{user?.name}</p>
                   <p className="text-xs text-muted-foreground font-mono uppercase bg-primary/20 px-2 py-1 rounded-full inline-block">
                     {user?.role}
                   </p>
                 </div>
-              </div>
+              </button>
             </div>
+            
+            {profileMenuOpen && (
+              <div className="space-y-2 mb-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    navigate('/profile');
+                    setProfileMenuOpen(false);
+                  }}
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  Mon Profil
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    navigate('/settings');
+                    setProfileMenuOpen(false);
+                  }}
+                >
+                  <Target className="w-4 h-4 mr-2" />
+                  Paramètres
+                </Button>
+              </div>
+            )}
+            
             <Button
               variant="outline"
               size="sm"

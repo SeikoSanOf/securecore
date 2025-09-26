@@ -27,7 +27,8 @@ import {
   ExternalLink,
   Eye,
   Download,
-  Plus
+  Plus,
+  FileText
 } from 'lucide-react';
 
 interface SystemStatus {
@@ -397,68 +398,69 @@ const Dashboard = () => {
             <CardDescription>Common security operations</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Button 
-                onClick={() => navigate('/password-manager')}
-                className="w-full h-20 glass-button border border-purple-500/30 hover:border-purple-500/50 text-purple-400 hover:text-purple-300 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
-              >
-                <div className="flex items-center justify-center w-full">
-                  <div className="p-3 rounded-lg bg-purple-500/20">
-                    <Lock className="w-6 h-6" />
-                  </div>
+            {(() => {
+              const quickActions = [
+                { 
+                  title: 'Password Manager', 
+                  description: 'Gérer vos mots de passe en sécurité',
+                  icon: Lock,
+                  path: '/passwords',
+                  color: 'text-purple-400',
+                  bgColor: 'from-purple-500/20 to-purple-600/20',
+                  highlight: true
+                },
+                { 
+                  title: 'OSINT Module', 
+                  description: 'Recherche d\'informations',
+                  icon: Search,
+                  path: '/osint',
+                  color: 'text-green-400',
+                  bgColor: 'from-green-500/20 to-green-600/20'
+                },
+                { 
+                  title: 'Pentest Suite', 
+                  description: 'Outils de test d\'intrusion',
+                  icon: Target,
+                  path: '/pentest',
+                  color: 'text-red-400',
+                  bgColor: 'from-red-500/20 to-red-600/20'
+                },
+                { 
+                  title: 'Rapports', 
+                  description: 'Consulter les rapports',
+                  icon: FileText,
+                  path: '/reports',
+                  color: 'text-yellow-400',
+                  bgColor: 'from-yellow-500/20 to-yellow-600/20'
+                }
+              ];
+
+              return (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {quickActions.map((action, index) => (
+                    <button
+                      key={index}
+                      onClick={() => navigate(action.path)}
+                      className={`relative overflow-hidden rounded-xl p-6 text-left transition-all duration-300 hover:scale-105 bg-gradient-to-br ${action.bgColor} glass-card border ${action.highlight ? 'border-purple-500/30 shadow-lg shadow-purple-500/10' : 'border-white/10'} hover:border-white/20 group`}
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <action.icon className={`w-8 h-8 ${action.color} transition-transform group-hover:scale-110`} />
+                        {action.highlight && (
+                          <div className="px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-semibold rounded-full border border-purple-500/30">
+                            PRIORITÉ
+                          </div>
+                        )}
+                      </div>
+                      <div className="space-y-3">
+                        <h3 className="text-lg font-semibold text-foreground leading-tight">{action.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{action.description}</p>
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+                    </button>
+                  ))}
                 </div>
-                <div className="text-center">
-                  <div className="font-medium text-sm">🔐 Password Manager</div>
-                  <div className="text-xs opacity-75">Secure storage</div>
-                </div>
-              </Button>
-              
-              <Button 
-                onClick={() => navigate('/osint-module')}
-                className="w-full h-20 glass-button border border-green-500/30 hover:border-green-500/50 text-green-400 hover:text-green-300 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
-              >
-                <div className="flex items-center justify-center w-full">
-                  <div className="p-3 rounded-lg bg-green-500/20">
-                    <Search className="w-6 h-6" />
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="font-medium text-sm">OSINT Search</div>
-                  <div className="text-xs opacity-75">Intelligence gathering</div>
-                </div>
-              </Button>
-              
-              <Button 
-                onClick={() => navigate('/pentest-suite')}
-                className="w-full h-20 glass-button border border-red-500/30 hover:border-red-500/50 text-red-400 hover:text-red-300 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
-              >
-                <div className="flex items-center justify-center w-full">
-                  <div className="p-3 rounded-lg bg-red-500/20">
-                    <Target className="w-6 h-6" />
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="font-medium text-sm">Start Pentest</div>
-                  <div className="text-xs opacity-75">Security scan</div>
-                </div>
-              </Button>
-              
-              <Button 
-                onClick={() => navigate('/reports')}
-                variant="outline"
-                className="w-full h-20 glass border border-white/20 hover:border-white/30 hover:scale-105 transition-all duration-200 flex-col space-y-2 p-4"
-              >
-                <div className="flex items-center justify-center w-full">
-                  <div className="p-3 rounded-lg bg-white/10">
-                    <Download className="w-6 h-6" />
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="font-medium text-sm">Export Reports</div>
-                  <div className="text-xs opacity-75">Download data</div>
-                </div>
-              </Button>
-            </div>
+              );
+            })()}
           </CardContent>
         </Card>
       </div>

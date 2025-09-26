@@ -12,6 +12,8 @@ import PasswordManager from "@/pages/PasswordManager";
 import PentestSuite from "@/pages/PentestSuite";
 import Reports from "@/pages/Reports";
 import Notifications from "@/pages/Notifications";
+import Profile from "@/pages/Profile";
+import Settings from "@/pages/Settings";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -48,6 +50,8 @@ const App = () => (
               <Route path="/pentest" element={<PentestSuite />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/notifications" element={<Notifications />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
