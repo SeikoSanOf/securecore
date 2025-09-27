@@ -29,8 +29,8 @@ const Layout = () => {
   };
 
   const menuItems = [
-    { path: '/passwords', icon: Lock, label: 'Password Manager', color: 'text-purple-400', highlight: true },
     { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', color: 'text-blue-400' },
+    { path: '/passwords', icon: Lock, label: 'Password Manager', color: 'text-purple-400' },
     { path: '/osint', icon: Search, label: 'OSINT Module', color: 'text-green-400' },
     { path: '/pentest', icon: Target, label: 'Pentest Suite', color: 'text-red-400' },
     { path: '/reports', icon: FileText, label: 'Rapports', color: 'text-yellow-400' },
@@ -80,9 +80,7 @@ const Layout = () => {
                   className={`w-full justify-start h-12 transition-all duration-200 ${
                     isActive 
                       ? 'glass-button border border-primary/20 shadow-lg shadow-primary/10' 
-                      : item.highlight 
-                        ? 'hover:glass hover:scale-105 border border-purple-500/30 bg-purple-500/10'
-                        : 'hover:glass hover:scale-105'
+                      : 'hover:glass hover:scale-105'
                   }`}
                   onClick={() => {
                     navigate(item.path);

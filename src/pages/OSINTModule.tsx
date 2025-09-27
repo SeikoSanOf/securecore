@@ -33,12 +33,14 @@ interface OSINTJob {
 }
 
 const osintSources = [
-  { id: 'social_media', name: 'Social Media', description: 'Facebook, Twitter, LinkedIn profiles' },
-  { id: 'domain_info', name: 'Domain Information', description: 'WHOIS, DNS records, subdomains' },
-  { id: 'email_search', name: 'Email Search', description: 'Email validation and breach data' },
-  { id: 'phone_search', name: 'Phone Search', description: 'Phone number lookup and carrier info' },
-  { id: 'username_search', name: 'Username Search', description: 'Username across platforms' },
-  { id: 'ip_geolocation', name: 'IP Geolocation', description: 'IP address location and ISP info' },
+  { id: 'social_media', name: 'Réseaux Sociaux', description: 'Facebook, Twitter, LinkedIn, Instagram profiles' },
+  { id: 'domain_info', name: 'Informations Domaine', description: 'WHOIS, DNS, sous-domaines, certificats' },
+  { id: 'email_search', name: 'Recherche Email', description: 'Validation, breaches, metadata SMTP' },
+  { id: 'phone_search', name: 'Recherche Téléphone', description: 'Opérateur, localisation, validité' },
+  { id: 'username_search', name: 'Recherche Username', description: 'Présence sur plateformes multiples' },
+  { id: 'ip_geolocation', name: 'Géolocalisation IP', description: 'Localisation, FAI, services exposés' },
+  { id: 'dark_web', name: 'Dark Web', description: 'Recherche dans bases de données compromises' },
+  { id: 'company_info', name: 'Informations Entreprise', description: 'Employés, technologies, financements' },
 ];
 
 const OSINTModule = () => {
@@ -141,40 +143,145 @@ const OSINTModule = () => {
       case 'domain_info':
         return {
           domain: target,
-          registrar: 'Example Registrar Inc.',
-          creationDate: '2020-03-15',
-          expirationDate: '2025-03-15',
-          nameServers: ['ns1.example.com', 'ns2.example.com'],
+          registrar: 'GoDaddy LLC',
+          creationDate: '2020-03-15T12:00:00Z',
+          expirationDate: '2025-03-15T12:00:00Z',
+          nameServers: ['ns1.cloudflare.com', 'ns2.cloudflare.com'],
           dnsRecords: {
-            A: ['192.168.1.100'],
-            MX: ['mail.example.com'],
-            TXT: ['v=spf1 include:_spf.google.com ~all']
+            A: ['104.21.45.67', '172.67.200.123'],
+            AAAA: ['2606:4700:3036::6815:2d43'],
+            MX: ['mail.protonmail.ch', 'mailsec.protonmail.ch'],
+            TXT: ['v=spf1 include:_spf.protonmail.ch ~all', 'v=DMARC1; p=quarantine;'],
+            CNAME: ['www.example.com']
+          },
+          subdomains: ['mail', 'admin', 'api', 'cdn', 'blog'],
+          ssl_info: {
+            issuer: 'Let\'s Encrypt Authority X3',
+            valid_from: '2024-01-15',
+            valid_to: '2024-04-15',
+            signature_algorithm: 'SHA256withRSA'
           }
         };
       case 'email_search':
         return {
           email: target,
           isValid: true,
-          breaches: ['Data Breach 2021', 'Marketing Leak 2022'],
-          socialProfiles: ['LinkedIn', 'Twitter'],
-          domain: target.split('@')[1]
+          deliverable: true,
+          breaches: [
+            { name: 'Adobe 2013', date: '2013-10-04', compromised_accounts: '152M' },
+            { name: 'LinkedIn 2012', date: '2012-06-05', compromised_accounts: '117M' },
+            { name: 'Collection #1', date: '2019-01-16', compromised_accounts: '773M' }
+          ],
+          socialProfiles: {
+            linkedin: 'https://linkedin.com/in/johndoe',
+            twitter: '@johndoe_sec',
+            github: 'github.com/johndoe'
+          },
+          domain_info: {
+            domain: target.split('@')[1],
+            mx_records: ['mail.google.com', 'alt1.gmail-smtp-in.l.google.com'],
+            spf_record: 'v=spf1 include:_spf.google.com ~all'
+          }
+        };
+      case 'social_media':
+        return {
+          platforms_found: [
+            { platform: 'LinkedIn', url: `https://linkedin.com/in/${target}`, verified: true },
+            { platform: 'Twitter', url: `https://twitter.com/${target}`, verified: true },
+            { platform: 'Instagram', url: `https://instagram.com/${target}`, verified: false },
+            { platform: 'GitHub', url: `https://github.com/${target}`, verified: true }
+          ],
+          profile_data: {
+            name: 'John Doe',
+            location: 'San Francisco, CA',
+            company: 'TechCorp Inc.',
+            job_title: 'Security Engineer',
+            connections: 500,
+            followers: 1200
+          }
         };
       case 'ip_geolocation':
         return {
           ip: target,
           country: 'United States',
+          country_code: 'US',
           region: 'California',
           city: 'San Francisco',
-          isp: 'CloudFlare Inc.',
+          isp: 'Cloudflare, Inc.',
+          organization: 'Cloudflare',
+          timezone: 'America/Los_Angeles',
           latitude: 37.7749,
-          longitude: -122.4194
+          longitude: -122.4194,
+          asn: 'AS13335',
+          threat_intelligence: {
+            malicious: false,
+            reputation: 'good',
+            last_seen: null
+          },
+          open_ports: [80, 443, 22],
+          services: ['HTTP/HTTPS', 'SSH']
+        };
+      case 'phone_search':
+        return {
+          phone: target,
+          valid: true,
+          type: 'mobile',
+          carrier: 'Verizon Wireless',
+          country: 'United States',
+          region: 'California',
+          timezone: 'Pacific',
+          ported: false,
+          social_media: ['WhatsApp', 'Telegram'],
+          recent_activity: '2024-01-15'
+        };
+      case 'username_search':
+        return {
+          username: target,
+          platforms_found: 15,
+          platforms: [
+            { name: 'Twitter', url: `https://twitter.com/${target}`, status: 'confirmed' },
+            { name: 'Instagram', url: `https://instagram.com/${target}`, status: 'confirmed' },
+            { name: 'GitHub', url: `https://github.com/${target}`, status: 'confirmed' },
+            { name: 'Reddit', url: `https://reddit.com/u/${target}`, status: 'probable' },
+            { name: 'YouTube', url: `https://youtube.com/@${target}`, status: 'probable' }
+          ],
+          last_activity: '2024-01-10'
+        };
+      case 'dark_web':
+        return {
+          target: target,
+          breaches_found: 3,
+          credentials: [
+            { username: target, password: '[REDACTED]', source: 'Collection #1', date: '2019-01-16' },
+            { username: target, password: '[REDACTED]', source: 'Exploit.in Combo', date: '2020-03-22' }
+          ],
+          mentions: 2,
+          forums: ['RaidForums', 'BreachForums'],
+          last_seen: '2023-12-15'
+        };
+      case 'company_info':
+        return {
+          company: target,
+          employees: {
+            total_found: 156,
+            departments: ['Engineering', 'Marketing', 'Sales', 'HR', 'Finance'],
+            key_personnel: [
+              { name: 'John Smith', title: 'CTO', linkedin: 'linkedin.com/in/johnsmith' },
+              { name: 'Jane Doe', title: 'CISO', linkedin: 'linkedin.com/in/janedoe' }
+            ]
+          },
+          technologies: ['AWS', 'Docker', 'React', 'Node.js', 'PostgreSQL'],
+          funding: '$50M Series B (2023)',
+          locations: ['San Francisco', 'New York', 'Austin']
         };
       default:
         return {
           target: target,
           found: Math.random() > 0.3,
           profiles: Math.floor(Math.random() * 5) + 1,
-          lastSeen: new Date().toISOString()
+          confidence: Math.floor(Math.random() * 40) + 60,
+          lastSeen: new Date().toISOString(),
+          data_sources: ['Public Records', 'Social Media', 'Web Scraping']
         };
     }
   };
