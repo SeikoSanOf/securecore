@@ -17,12 +17,13 @@ interface LoginResult {
 
 interface AuthContextType {
   user: User | null;
-  setUser?: (user: User) => void; // <-- ajouter ici
-  login: (email: string, password: string) => Promise<boolean>;
+  setUser?: (user: User) => void;
+  login: (email: string, password: string) => Promise<LoginResult>; // <-- changer boolean en LoginResult
   register: (username: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
 }
+
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -86,7 +87,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return { success: true, user: data.user, token: data.token };
   } catch (err) {
     console.error(err);
-    return { success: false, error: "Erreur serveur" };
+    return { success: false, error: "Une erreur est survenue." };
   }
 };
 
@@ -109,7 +110,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       // Après register réussi, on peut auto-login
-      return await login(email, password);
+      const loginResult = await login(email, password);
+      return loginResult.success;
     } catch (err) {
       console.error("Register error:", err);
       return false;
