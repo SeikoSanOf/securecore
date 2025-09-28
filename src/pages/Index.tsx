@@ -36,7 +36,7 @@ const Index = () => {
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-muted-foreground">Loading SecureCore Pro...</p>
+          <p className="text-muted-foreground">Loading SecureCore...</p>
         </div>
       </div>
     );
@@ -60,7 +60,7 @@ const Index = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-                  SecureCore Pro
+                  SecureCore
                 </h1>
                 <p className="text-xs text-muted-foreground font-mono">Enterprise Cybersecurity Platform</p>
               </div>
@@ -261,10 +261,10 @@ const Index = () => {
         <div className="container mx-auto px-4 py-20">
           <div className="glass-card border border-white/10 p-12 text-center">
             <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">
-              Ready to Secure Your Organization?
+              Ready to Secure Your Organization ?
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join thousands of security professionals using SecureCore Pro to protect their digital assets
+              Join thousands of security professionals using SecureCore to protect their digital assets
             </p>
             <Button 
               size="lg"
@@ -285,11 +285,11 @@ const Index = () => {
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
               <Shield className="w-6 h-6 text-primary" />
               <span className="font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-                SecureCore Pro
+                SecureCore
               </span>
             </div>
             <div className="text-sm text-muted-foreground">
-              © 2024 SecureCore Pro. Enterprise Security Platform.
+              © 2025 SecureCore. Enterprise Security Platform.
             </div>
           </div>
         </div>

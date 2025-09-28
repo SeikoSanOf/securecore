@@ -1,16 +1,25 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { jwtDecode } from "jwt-decode";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 interface User {
   id: string;
-  email: string;
   name: string;
-  role: 'admin' | 'analyst' | 'user';
+  email: string;
+  role: string;
+}
+
+interface LoginResult {
+  success: boolean;
+  user?: User;
+  token?: string;
+  error?: string;
 }
 
 interface AuthContextType {
   user: User | null;
+  setUser?: (user: User) => void; // <-- ajouter ici
   login: (email: string, password: string) => Promise<boolean>;
-  register: (email: string, password: string, name: string) => Promise<boolean>;
+  register: (username: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -19,9 +28,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;
 };
 
@@ -29,84 +36,94 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+interface DecodedToken {
+  userId: string;
+  email: string;
+  role?: string;
+  exp?: number;
+}
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // Check for stored user session or demo mode
-    const storedUser = localStorage.getItem('securecore_user');
-    const demoMode = localStorage.getItem('demo_mode');
-    
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else if (demoMode === 'true') {
-      const demoUser: User = {
-        id: 'demo',
-        email: 'demo@securecore.com',
-        name: 'Demo User',
-        role: 'analyst'
-      };
-      setUser(demoUser);
+    const storedToken = localStorage.getItem("auth_token");
+    if (storedToken) {
+      try {
+        const decoded = jwtDecode<DecodedToken>(storedToken);
+        setUser({
+          id: decoded.userId,
+          email: decoded.email,
+          name: decoded.email?.split("@")[0] || "Unknown",
+          role: (decoded.role as "admin" | "analyst" | "user") || "user",
+        });
+      } catch (err) {
+        console.error("Token invalide :", err);
+        localStorage.removeItem("auth_token");
+      }
     }
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulate API call - in real app this would be a backend call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    if (email && password) {
-      const mockUser: User = {
-        id: '1',
-        email,
-        name: email.split('@')[0],
-        role: email.includes('admin') ? 'admin' : 'analyst'
-      };
-      
-      setUser(mockUser);
-      localStorage.setItem('securecore_user', JSON.stringify(mockUser));
-      return true;
-    }
-    
-    return false;
-  };
+  // ---------- LOGIN ----------
+  const login = async (email: string, password: string): Promise<LoginResult> => {
+  try {
+    const res = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-  const register = async (email: string, password: string, name: string): Promise<boolean> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    if (email && password && name) {
-      const mockUser: User = {
-        id: Math.random().toString(36),
-        email,
-        name,
-        role: 'user'
-      };
-      
-      setUser(mockUser);
-      localStorage.setItem('securecore_user', JSON.stringify(mockUser));
-      return true;
+    const data = await res.json();
+
+    if (!res.ok) {
+      return { success: false, error: data.error || "Login failed" };
     }
-    
-    return false;
+
+    setUser(data.user);
+    localStorage.setItem("securecore_user", JSON.stringify(data.user));
+    localStorage.setItem("auth_token", data.token);
+
+    return { success: true, user: data.user, token: data.token };
+  } catch (err) {
+    console.error(err);
+    return { success: false, error: "Erreur serveur" };
+  }
+};
+
+
+
+
+  // ---------- REGISTER ----------
+  const register = async (username: string, email: string, password: string): Promise<boolean> => {
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("Register failed:", errorData);
+        return false;
+      }
+
+      // Après register réussi, on peut auto-login
+      return await login(email, password);
+    } catch (err) {
+      console.error("Register error:", err);
+      return false;
+    }
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('securecore_user');
-    localStorage.removeItem('demo_mode');
-    localStorage.removeItem('auth_token');
-  };
-
-  const value: AuthContextType = {
-    user,
-    login,
-    register,
-    logout,
-    isAuthenticated: !!user,
+    localStorage.removeItem("auth_token");
   };
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, isAuthenticated: !!user }}>
+
       {children}
     </AuthContext.Provider>
   );

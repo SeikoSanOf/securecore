@@ -168,7 +168,7 @@ const Dashboard = () => {
             Welcome back, {user?.name}
           </h1>
           <p className="text-muted-foreground text-lg">
-            SecureCore Pro Security Dashboard
+            SecureCore Security Dashboard
           </p>
           <div className="flex items-center mt-2 space-x-4">
             <Badge variant="secondary" className="bg-primary/20 text-primary">

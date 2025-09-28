@@ -17,10 +17,10 @@ import {
 import { mockAPI } from './mockAPI';
 
 // Base API configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = 'http://localhost:3000/api'; // Backend local
 
 // Development mode: use mock data if no backend is available  
-const USE_MOCK_API = import.meta.env.DEV && !import.meta.env.VITE_API_URL;
+const USE_MOCK_API = import.meta.env.DEV && !import.meta.env.API_BASE_URL;
 
 class APIService {
   private token: string | null = null;

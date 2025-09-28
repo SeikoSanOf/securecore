@@ -53,7 +53,7 @@ const Layout = () => {
                   <h1 className="text-lg font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
                     SecureCore
                   </h1>
-                  <p className="text-xs text-muted-foreground font-mono">Pro v1.0</p>
+                  <p className="text-xs text-muted-foreground font-mono">Bêta v1.0</p>
                 </div>
               </div>
               <Button
@@ -173,7 +173,7 @@ const Layout = () => {
                 <Shield className="w-5 h-5 text-primary" />
               </div>
               <span className="font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-                SecureCore Pro
+                SecureCore
               </span>
             </div>
             <div />
