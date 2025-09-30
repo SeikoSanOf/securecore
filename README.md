@@ -9,8 +9,8 @@
 
 ### 1. Cloner le projet
 ```bash
-git clone https://github.com/votre-repo/securecore-mvp.git
-cd securecore-mvp
+git clone https://github.com/SeikoSanOf/securecore.git
+cd securecore
 ```
 
 ### 2. Installer les dépendances
@@ -138,12 +138,7 @@ npm run type-check      # Vérification TypeScript
 - Système de notifications push
 - Historique complet
 
-## 🚀 Déploiement
-
-### Lovable (recommandé)
-1. Ouvrez [Lovable Project](https://lovable.dev/projects/cc7714f4-01ec-49b2-a39f-a769437e3198)
-2. Cliquez sur "Publish" → "Deploy"
-3. Votre app sera disponible sur `votre-app.lovable.app`
+## 🚀 Déploiement`
 
 ### Build Manuel
 ```bash
@@ -183,8 +178,8 @@ npm run test:e2e
 3. **Base de données :** Vérifiez les credentials dans `.env.local`
 
 ### Support
-- GitHub Issues : [Créer un ticket](https://github.com/votre-repo/issues)
-- Email : support@securecore.dev
+- GitHub Issues : [Créer un ticket](https://github.com/seikosanof/securecore/issues)
+- Email : support@securecore.dev (Pas encore actif)
 
 ## 📝 License
 
@@ -200,5 +195,5 @@ MIT License - voir [LICENSE](LICENSE) pour plus de détails.
 
 ---
 
-**SecureCore MVP** - Plateforme de cybersécurité professionnelle  
+**SecureCore** - Plateforme de cybersécurité professionnelle  
 Version 1.0 | Développé avec ❤️ et React

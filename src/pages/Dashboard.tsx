@@ -244,7 +244,7 @@ const Dashboard = () => {
             )}
             <p className="text-xs text-muted-foreground flex items-center">
               <Shield className="w-3 h-3 mr-1 text-purple-400" />
-              98% secure
+              200% secure
             </p>
           </CardContent>
         </Card>
